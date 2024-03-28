@@ -4,32 +4,29 @@ import { _touch } from './internal/core';
 export type UnwrapRefs<T extends Ref[] | Ref> = T extends Ref[]
   ? { [K in keyof T]: T[K] extends Ref ? T[K]['value'] : never }
   : T extends Ref
-  ? T['value']
-  : never;
+    ? T['value']
+    : never;
 
-export type Subscriber<T = any> = (newValue: T, oldValue: T) => void;
+export type Subscriber<T = any> = (value: T, oldValue: T) => void;
 
+// Possible, internal interface of a `ref`.
+// In reality, it would be a lot more complex.
 export interface Ref<T = any> {
-  subscribe(fn: Subscriber<T>);
-  unSubscribe(fn: Subscriber<T>);
+  subscribe(fn: Subscriber<T>): void;
+  unSubscribe(fn: Subscriber<T>): void;
   value: T;
 }
 
 export const ref = <T = any>(init?: T): Ref<T> => {
   const subscribers: Set<Subscriber<T>> = new Set();
+  let updating = false;
   let value = init;
 
   return {
-    subscribe(fn: Subscriber<T>) {
-      subscribers.add(fn);
-    },
-
-    unSubscribe(fn: Subscriber<T>) {
-      subscribers.delete(fn);
-    },
+    subscribe: (fn: Subscriber<T>) => subscribers.add(fn),
+    unSubscribe: (fn: Subscriber<T>) => subscribers.delete(fn),
 
     set value(v: T) {
-      // Ignore non-changes
       if (v === value) {
         return;
       }
@@ -37,12 +34,19 @@ export const ref = <T = any>(init?: T): Ref<T> => {
       const oldValue = value;
       value = v;
 
-      // subscribers may be changed when one is called
-      const subscriberCount = subscribers.size;
-      const interator = subscribers[Symbol.iterator]();
-      for (let i = 0; i < subscriberCount; i++) {
-        interator.next().value(value, oldValue);
+      if (updating) {
+        return;
       }
+
+      // subscribers may be changed when one is called
+      updating = true;
+      const subscriberCount = subscribers.size;
+      const iterator = subscribers[Symbol.iterator]();
+      for (let i = 0; i < subscriberCount; i++) {
+        iterator.next().value(value, oldValue);
+      }
+
+      updating = false;
     },
 
     get value() {

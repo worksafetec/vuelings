@@ -21,23 +21,23 @@ test('Should throw an error on modification', () => {
 
   const sum = computed(() => a.value + b.value);
 
-  expect(() => (sum.value = 5)).toThrow();
+  expect(() => (sum.value = 5)).toThrow(/Computed/);
 
   expect(sum.value).toEqual(8);
 });
 
-test('Should recompute several computed properties', () => {
+test('Should recompute nested computed properties', () => {
   const a = ref(5);
   const b = ref(3);
   const c = ref(7);
 
   const ab = computed(() => a.value + b.value);
   const bc = computed(() => b.value + c.value);
-  const abbc = computed(() => ab.value + bc.value);
+  const total = computed(() => ab.value + bc.value);
 
   assert.equal(ab.value, 8);
   assert.equal(bc.value, 10);
-  assert.equal(abbc.value, 18);
+  assert.equal(total.value, 18);
 
   a.value = 1;
   b.value = 2;
@@ -45,5 +45,5 @@ test('Should recompute several computed properties', () => {
 
   assert.equal(ab.value, 3);
   assert.equal(bc.value, 5);
-  assert.equal(abbc.value, 8);
+  assert.equal(total.value, 8);
 });

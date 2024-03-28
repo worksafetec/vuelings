@@ -1,7 +1,32 @@
-# Build files and dependencies
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Cache files
+.eslintcache
+
+# Dist files and dependencies
 node_modules
 dist
+dist-ssr
+*.local
+dev-dist
 
-# IDE Files
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
 .idea
-.vscode
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Env files
+.env

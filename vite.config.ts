@@ -6,7 +6,7 @@ export default defineConfig({
     lib: {
       entry: 'src/index.ts',
       name: 'composition',
-      formats: ['cjs', 'es', 'iife']
+      formats: ['es']
     }
   }
 });

@@ -3,7 +3,7 @@ import { ref, Ref } from './ref';
 
 export type ReadonlyRef<T> = Ref<T>;
 
-const MODIFY_ERROR = 'Computed values should not be modified.';
+const MODIFY_ERROR = 'Ref is readonly.';
 
 export const readonly = <T>(v: Ref<T>): ReadonlyRef<T> => {
   const internal = ref<T>(v.value);

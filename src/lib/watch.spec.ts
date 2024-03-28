@@ -2,7 +2,7 @@ import { expect, test, vi } from 'vitest';
 import { ref } from './ref';
 import { watch } from './watch';
 
-test('Should watch refs of differnt type', () => {
+test('Should watch refs of different type', () => {
   const a = ref(5);
   const b = ref('foo');
 
