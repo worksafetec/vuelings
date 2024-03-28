@@ -2,9 +2,12 @@ import { ref } from '@reactivity';
 import { expect, test } from 'vitest';
 
 /**
- * This is the first exercise of the course.
+ * This is the introduction to the reactivity exercises.
  * Each exercise contains a half-written code that you need to complete.
  * A `TODO: ...` comment indicates what and where you need to implement something.
+ *
+ * You will only ever need to change/add code where a `TODO` comment is present!
+ * Never change `expect` or `test` calls.
  *
  * To run an exercise execute `npm start <exercise-number>` in the root directory.
  * For this one run `npm start 00` to start the exercise.
@@ -15,10 +18,8 @@ import { expect, test } from 'vitest';
  *
  * There will also be always a link to the vue documentation and, in the beginning, a link
  * to the implementation in this repository.
- *
  * I HIGHLY recommend you to have a look at the implementations, if available, in this repository
  * to get a better understanding of how things work.
- *
  *
  * If all tests pass you can jump to the next exercise by running `npm start 01` and opening the next file.
  */
