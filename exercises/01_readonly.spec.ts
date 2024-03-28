@@ -13,7 +13,7 @@ import { expect, test } from 'vitest';
 /**
  * In this exercise you need to mark a `ref` as readonly.
  */
-test('Marking a `ref` as readonly', () => {
+test('1. Marking a `ref` as readonly', () => {
   const counter = ref(0);
 
   const readonlyCounter = counter; // TODO: Make the counter readonly
@@ -26,7 +26,7 @@ test('Marking a `ref` as readonly', () => {
  * As mentioned earlier, marking a `ref` as readonly doesn't prevent the underlying value from being changed.
  * In most cases you keep the underlying ref locally and expose a readonly version of it.
  */
-test('Change the underlying value of a readonly ref', () => {
+test('2. Change the underlying value of a readonly ref', () => {
   const value = ref(5);
   const readonlyValue = readonly(value);
 

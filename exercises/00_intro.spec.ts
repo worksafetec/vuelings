@@ -32,7 +32,7 @@ import { expect, test } from 'vitest';
  * Implementation: `src/lib/ref.ts`
  * Vue implementation: https://vuejs.org/api/reactivity-core.html#shallowRef
  */
-test('Count up a ref', () => {
+test('1. Count up a ref', () => {
   const counter = ref(0);
   expect(counter.value).toEqual(0);
 
@@ -44,7 +44,7 @@ test('Count up a ref', () => {
 /**
  * Values from refs can be accessed and modified like any other object property.
  */
-test('Calculate the sum of two refs', () => {
+test('2. Calculate the sum of two refs', () => {
   const a = ref(5);
   const b = ref(3);
 
