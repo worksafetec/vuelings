@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
     "moduleResolution": "Node",
+    "esModuleInterop": true,
     "skipLibCheck": true,
     "module": "ESNext",
     "target": "ESNext",
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@reactivity": ["./src/index.ts"]
+    }
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "exercises/**/*.ts",
   ]
 }

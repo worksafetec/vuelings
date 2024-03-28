@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { _touch } from './internal/core';
 
+// This type also exists in vue, but is more complex.
 export type UnwrapRefs<T extends Ref[] | Ref> = T extends Ref[]
   ? { [K in keyof T]: T[K] extends Ref ? T[K]['value'] : never }
   : T extends Ref
@@ -17,12 +18,17 @@ export interface Ref<T = any> {
   value: T;
 }
 
+/**
+ * Creates a reactive reference that only shallowly tracks the value.
+ * In vue it'd be a shallowRef: https://vuejs.org/api/reactivity-advanced.html#shallowref
+ */
 export const ref = <T = any>(init?: T): Ref<T> => {
   const subscribers: Set<Subscriber<T>> = new Set();
   let updating = false;
   let value = init;
 
   return {
+    // Subscribing and unsubscribing to the ref.
     subscribe: (fn: Subscriber<T>) => subscribers.add(fn),
     unSubscribe: (fn: Subscriber<T>) => subscribers.delete(fn),
 

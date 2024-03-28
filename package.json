@@ -2,6 +2,7 @@
   "name": "reactivity",
   "private": true,
   "version": "0.0.0",
+  "packageManager": "pnpm@8.14.0",
   "description": "Exercises to get you started with reactivity in vue",
   "main": "src/index.ts",
   "type": "module",
@@ -14,12 +15,13 @@
   "author": "Simon Reinisch <simon.reinisch@work-safe-tec.de>",
   "license": "MIT",
   "scripts": {
-    "test": "vitest run",
-    "test:watch": "vitest",
+    "test": "vitest run src/**/*.spec.ts",
+    "test:watch": "vitest src/**/*.spec.ts",
     "build": "tsc && vite build",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "pnpm run lint --fix",
-    "test:ci": "pnpm run lint:fix && pnpm run test && pnpm run build"
+    "test:ci": "pnpm run lint:fix && pnpm run test && pnpm run build",
+    "start": "vitest"
   },
   "dependencies": {
     "@types/node": "20.11.30"
@@ -30,8 +32,10 @@
     "eslint": "8.57.0",
     "eslint-plugin-prettier": "5.1.3",
     "prettier": "3.2.5",
+    "ts-node": "10.9.2",
     "typescript": "5.4.3",
     "vite": "5.2.6",
+    "vite-tsconfig-paths": "4.3.2",
     "vitest": "1.4.0"
   }
 }
