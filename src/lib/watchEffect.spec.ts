@@ -1,5 +1,5 @@
 import { expect, test, vi } from 'vitest';
-import { effect } from './effect';
+import { watchEffect } from './watchEffect';
 import { ref } from './ref';
 
 test('Should trigger an effect', () => {
@@ -12,7 +12,7 @@ test('Should trigger an effect', () => {
     void b.value;
   });
 
-  effect(cb);
+  watchEffect(cb);
   expect(cb).toHaveBeenCalledTimes(1);
 
   c.value = 5;
@@ -36,7 +36,7 @@ test('Should stop an effect', () => {
     void b.value;
   });
 
-  const stop = effect(cb);
+  const stop = watchEffect(cb);
   expect(cb).toHaveBeenCalledTimes(1);
 
   c.value = 5;

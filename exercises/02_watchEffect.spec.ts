@@ -1,10 +1,10 @@
-import { effect, ref } from '@reactivity';
+import { watchEffect, ref } from '@reactivity';
 import { expect, test, vi } from 'vitest';
 
 /**
  * In this chapter we talk about how we can watch and track the value of a ref.
  *
- * Implementation: `src/lib/effect.ts`.
+ * Implementation: `src/lib/watchEffect.ts`.
  * Vue implementation: https://vuejs.org/api/reactivity-core.html#watcheffect
  */
 
@@ -20,7 +20,7 @@ test('1. Logging the value of a ref', () => {
     // TODO: Log the value of the counter
   });
 
-  effect(callback);
+  watchEffect(callback);
 
   for (let i = 0; i < 10; i++) {
     counter.value++;
@@ -41,7 +41,7 @@ test('2. Changing the value of a ref to the current value', () => {
   // Useful if you want to access a variable without the linter telling you that you didn't use it.
   // See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void
   const callback = vi.fn(() => void counter.value);
-  effect(callback);
+  watchEffect(callback);
 
   for (const v of [1, 1, 2, 2, 3, 3]) {
     counter.value = v;
@@ -71,7 +71,7 @@ test('3. Implicitly deactivating an effect', () => {
     }
   });
 
-  effect(callback);
+  watchEffect(callback);
 
   for (let i = 0; i < 10; i++) {
     counter.value++;
@@ -93,7 +93,7 @@ test('4. Changing refs in effects', () => {
     // TODO: Update the counterWasDivisibleByTwo value based on the counter value
   });
 
-  effect(callback);
+  watchEffect(callback);
 
   for (let i = 0; i < 10; i++) {
     counter.value++;
@@ -115,7 +115,7 @@ test('5. Reacting to several refs', () => {
     void counter2.value;
   });
 
-  effect(callback);
+  watchEffect(callback);
 
   for (let i = 0; i < 10; i++) {
     if (i % 2 === 0) {
@@ -137,7 +137,7 @@ test('6. Implicitly deactivating an effect', () => {
   const counter2 = ref(0);
   const counter = ref(0);
 
-  effect(() => {
+  watchEffect(() => {
     counter2.value = counter.value;
   });
 
@@ -157,10 +157,10 @@ test('6. Implicitly deactivating an effect', () => {
 /**
  * Let's now calculate the sum of two values.
  */
-test('6. Calculations in effects', () => {
+test('7. Calculating the sum of two refs using `effect`', () => {
   const a = ref(3);
   const b = ref(5);
-  const sum = ref(0);
+  const sum = ref(-1);
 
   // TODO: Use `effect` to calculate the sum of a and b and store it in the sum ref
 
@@ -168,7 +168,10 @@ test('6. Calculations in effects', () => {
   // The sum should at this point already have the value of 8
   expect(sum.value).toEqual(8);
 
-  a.value = 2;
-  b.value = 8;
-  expect(sum.value).toEqual(10);
+  a.value = 4;
+  expect(sum.value).toEqual(9);
+
+  a.value = 0;
+  b.value = 3;
+  expect(sum.value).toEqual(3);
 });
